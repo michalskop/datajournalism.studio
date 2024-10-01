@@ -1,6 +1,8 @@
-import { Heading, Text, Grid, Flex } from '../once-ui/components';
+import { Heading, Text, Grid, Flex, LetterFx } from '../once-ui/components';
 import Link from 'next/link';
 import { getAllPostSlugs, getPostData, PostData } from '../utils/markdown';
+import FeaturedWork from '../components/FeaturedWork';
+import RecentPosts from '../components/RecentPosts';
 
 async function getRecentPosts(): Promise<PostData[]> {
   const slugs = getAllPostSlugs('blog');
@@ -14,25 +16,51 @@ export default async function Home() {
   const recentPosts = await getRecentPosts();
 
   return (
-    <Flex direction="column">
-      <Heading as="h1" className="font-xl">Datajournalism/Studio</Heading>
-      <Text>We make the data talk.</Text>
-      
-      <Heading as="h2">Featured Work</Heading>
-      <Grid columns="repeat(2, 1fr)" gap="24">
-        {/* Featured work content */}
-      </Grid>
+    <Flex 
+      direction="column"
+      padding="16"
+      gap="24"
+    >
+      <Heading as="h1" onSolid="accent-strong" className="font-display font-strong font-l neutral-on-background-strong" style={{ textAlign: 'center' }}>
+        Data Journalism Studio
+      </Heading>
+      <Text className="mb-48 font-display font-strong font-xs warning-on-background-weak" style={{ textAlign: 'center' }}>
+      <span
+          style={{
+            fontFamily: 'var(--font-family-code)'
+          }}
+        >
+          <LetterFx
+            speed="slow"
+            trigger="instant"
+            charset={[
+              'X',
+              '@',
+              '$',
+              'a',
+              'H',
+              'z',
+              'o',
+              '0',
+              'y',
+              '#',
+              '?',
+              '*',
+              '0',
+              '1',
+              '+'
+            ]}
+          >
+            We make data talk.
+          </LetterFx>
+        </span>
+        
+        </Text>
 
-      <Heading as="h2">Recent Posts</Heading>
-      <Grid columns="repeat(3, 1fr)" gap="24">
-        {recentPosts.map((post) => (
-          <Flex key={post.slug} direction="column">
-            <Heading as="h3">{post.title}</Heading>
-            <Text>{new Date(post.date).toLocaleDateString()}</Text>
-            <Link href={`/blog/${post.slug}`}>Read more</Link>
-          </Flex>
-        ))}
-      </Grid>
+
+      
+        <FeaturedWork />
+        <RecentPosts recentPosts={recentPosts} />
     </Flex>
   );
 }

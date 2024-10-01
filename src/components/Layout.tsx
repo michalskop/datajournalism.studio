@@ -9,6 +9,7 @@ interface LayoutProps {
   children: React.ReactNode;
 }
 
+
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const router = useRouter();
   const pathname = usePathname();
@@ -25,23 +26,25 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   };
 
   return (
-    <Flex direction="column" className={styles.container}>
+    <Flex direction="column" className={styles.container} fillWidth fillHeight minHeight={16} position="relative" radius="l">
       <Background
-        position="absolute"
-        gradient
-        style={{ zIndex: -1, top: 0, left: 0, right: 0, bottom: 0 }}
-      />
-      <Flex as="header" className={styles.header} align="center" justifyContent="space-between">
-        <Flex align="center" gap="16" alignItems="center">
-          <img
-            src="/images/logo.svg"
-            alt="Datajournalism Studio Logo"
-            style={{ display: 'block' }}
-          />
-          <Text size="l">Datajournalism.Studio</Text>
-        </Flex>
+          position="absolute"
+          gradient
+          lines={false}
+          dots={false}
+          style={{ zIndex: -1 }}
+        />
+      <Flex as="header" className={styles.header} align="center" justifyContent="space-between" alignItems="center" style={{ paddingTop: '20px' }}>
+      <Flex align="left" gap="16" alignItems="center">
+      <a href="/">
+        <span style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+          <img src="/images/logo.svg" alt="Datajournalism Studio Logo" style={{ display: 'block' }} />
+          <Text size="l">Datajournalism<br />Studio</Text>
+        </span>
+      </a>
+    </Flex>
         <nav>
-          <Flex gap="8" justifyContent="center">
+          <Flex gap="8" justifyContent="center" alignItems="center">
             {menuItems.map((item) => (
               <ToggleButton
                 key={item.href}
@@ -55,9 +58,23 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           </Flex>
         </nav>
       </Flex>
-      <main className={styles.main}>{children}</main>
+      <Flex 
+        direction="column"
+        padding="16"
+        gap="24"
+        style={{
+          maxWidth: '1000px',
+          margin: '0 auto',
+          width: '100%'
+        }}
+      >
+        <main className={styles.main}>{children}</main>
+      </Flex>
       <footer className={styles.footer}>
-        <Text>&copy; {new Date().getFullYear()} Datajournalism.Studio. All rights reserved.</Text>
+        <hr/>
+        <Text as="p" className="pt-8">+43 609 10 20 33 88 / +420 735 518 529</Text><br/>
+        <Text as="p" className="pt-8">Vienna • Prague</Text><br/>
+        <Text as="p" className="pt-8">&copy; {new Date().getFullYear()} DataJournalism.studio </Text>
       </footer>
     </Flex>
   );
