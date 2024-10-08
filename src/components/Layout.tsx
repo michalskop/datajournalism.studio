@@ -29,7 +29,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     <Flex direction="column" className={styles.container} fillWidth fillHeight minHeight={16} position="relative" radius="l">
       <Background
           position="absolute"
-          gradient
+          /*gradient*/
           lines={false}
           dots={false}
           style={{ zIndex: -1 }}
